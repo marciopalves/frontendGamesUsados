@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: process.env.REACT_APP_API
+    baseURL: 'http://localhost:8080'
 });
 
 export const useApi = () => ({
@@ -14,7 +14,7 @@ export const useApi = () => ({
     // },
     
     signin: async (email: string, password: string) => {        
-        const response = await api.post('/auth', { email, password });
+        const response = await api.post('https://localhost:8080/auth', { email, password });
         return response.data;
     },
 

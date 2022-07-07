@@ -9,20 +9,19 @@ export const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');    
 
-    const handleLogin = async () =>{
+    const handleLogin = () =>{
         console.log('Acesso ao sistema ...');        
-        if(email && password){            
-            const isLogged = await auth.signin(email, password);
-            if(isLogged){
-              navigate('/');  
-            } else {
+        // if(email && password){            
+            const isLogged = auth.signin(email, password);
+            // if(isLogged){
+              // navigate('/teset');  
+            // } else {
                 alert("Login não funcionou!")
-            }
-        }        
+            // }
+        // }      
     }
 
     return (        
-
         <div className="user-login">
             <form>
                 <h2 className="user-login__title">Login Games Usados</h2>
@@ -51,10 +50,10 @@ export const Login = () => {
                 
                 <button 
                     className="user-login__submit-button"                    
-                    onClick={handleLogin}>Entrar 
+                    onClick={handleLogin}>
+                        Entrar 
                 </button>
             </form>
         </div>
-
     );
 }

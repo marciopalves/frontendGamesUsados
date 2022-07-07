@@ -3,8 +3,9 @@ import './App.css';
 import { Route, Routes, Link } from 'react-router-dom';
 import { Home } from './pages/Home';
 import { CadGerente } from './pages/CadGerente';
+import { Login } from './pages/Login';
 import { RequireAuth } from './contexts/Auth/RequireAuth';
-//import { AuthContext } from './contexts/Auth/AuthContext';
+import { AuthContext } from './contexts/Auth/AuthContext';
 
 
 function App() {
@@ -22,12 +23,14 @@ function App() {
         <nav>
           <Link to="/">Home</Link>
           <Link to="/cadgerente">Cadastro de Gerentes</Link>
+          <Link to="/login">Login</Link>
         </nav>
       </header>
       <hr />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/cadgerente" element={<RequireAuth><CadGerente/></RequireAuth>} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </div>
   );

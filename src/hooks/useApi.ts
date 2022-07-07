@@ -13,8 +13,12 @@ export const useApi = () => ({
     //     return response.data;
     // },
     
-    signin: async (email: string, password: string) => {        
-        const response = await api.post('https://localhost:8080/auth', { email, password });
+    signin: async (email: string, password: string) => {
+        const headers = {
+            'Content-Type': 'json',
+            'Access-Control-Allow-Origin': 'react'
+        };
+        const response = await api.post('auth', { email, password }, {headers});
         return response.data;
     },
 

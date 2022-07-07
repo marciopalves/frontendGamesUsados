@@ -7,23 +7,21 @@ export const Login = () => {
     const auth = useContext(AuthContext);
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');    
+    const [password, setPassword] = useState('');
 
-    const handleLogin = () =>{
-        console.log('Acesso ao sistema ...');        
-        // if(email && password){            
-            const isLogged = auth.signin(email, password);
-            // if(isLogged){
-              // navigate('/teset');  
-            // } else {
-                alert("Login não funcionou!")
-            // }
-        // }      
-    }
+  const onSubmit = (form: React.FormEvent<HTMLFormElement>) => {
+        console.log('pegou');
+        console.log(email);
+        console.log(password);
 
-    return (        
+        const isLogged = auth.signin(email, password);
+        console.log("recebeu: " + isLogged);
+        form.preventDefault();
+      };
+
+    return (
         <div className="user-login">
-            <form>
+            <form onSubmit={onSubmit}>
                 <h2 className="user-login__title">Login Games Usados</h2>
 
                 <div className="user-login__form-control">
@@ -48,9 +46,7 @@ export const Login = () => {
                     />
                 </div>                
                 
-                <button 
-                    className="user-login__submit-button"                    
-                    onClick={handleLogin}>
+                <button className="user-login__submit-button">
                         Entrar 
                 </button>
             </form>

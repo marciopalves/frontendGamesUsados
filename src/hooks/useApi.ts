@@ -14,11 +14,7 @@ export const useApi = () => ({
     // },
     
     signin: async (email: string, password: string) => {
-        const headers = {
-            'Content-Type': 'json',
-            'Access-Control-Allow-Origin': 'react'
-        };
-        const response = await api.post('auth', { email, password }, {headers});
+        const response = await api.post('auth', { email, password });
         return response.data;
     },
 

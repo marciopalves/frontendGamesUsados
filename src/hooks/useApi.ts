@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: process.env.REACT_APP_API
+    baseURL: 'http://localhost:8080'
 });
 
 export const useApi = () => ({
@@ -13,8 +13,12 @@ export const useApi = () => ({
     //     return response.data;
     // },
     
-    signin: async (email: string, password: string) => {        
-        const response = await api.post('/auth', { email, password });
+    signin: async (email: string, password: string) => {
+        const headers = {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*'
+        };
+        const response = await api.post('auth', { email, password }, {headers});
         return response.data;
     },
 

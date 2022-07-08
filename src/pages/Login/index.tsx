@@ -1,60 +1,57 @@
 import { useContext, useState } from "react"
 import { AuthContext } from "../../contexts/Auth/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { Formik, Field, Form, FormikHelpers } from "formik";
 import './Index.css';
 
 export const Login = () => {
     const auth = useContext(AuthContext);
     const navigate = useNavigate();
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');    
 
-    const handleLogin = async () =>{
-        console.log('Acesso ao sistema ...');        
-        if(email && password){            
-            const isLogged = await auth.signin(email, password);
-            if(isLogged){
-              navigate('/');  
-            } else {
-                alert("Login não funcionou!")
-            }
-        }        
+    interface Values {
+      password: string;
+      email: string;
     }
 
-    return (        
+    return (
+         <div className="user-login">
+               <Formik
+                 initialValues={{
+                   password: '',
+                   email: '',
+                 }}
+                 onSubmit={(
+                   values: Values,
+                   { setSubmitting }: FormikHelpers<Values>
+                 ) => {
+                   setTimeout(() => {
+                     auth.signin(values.email, values.password);
+                     setSubmitting(false);
+                   }, 500);
+                 }}
+               >
+                 <Form>
+                 <h2 className="user-login__title">Login Games Usados</h2>
+                   <div className="user-login__form-control">
+                                       <label htmlFor="email">E-mail</label>
+                   <Field
+                     id="email"
+                     name="email"
+                     placeholder="seuemail@email.com"
+                     type="email"
+                   />
+                    </div>
 
-        <div className="user-login">
-            <form>
-                <h2 className="user-login__title">Login Games Usados</h2>
 
-                <div className="user-login__form-control">
-                    <label htmlFor="email">E-mail</label>
-                    <input 
-                        id="email" 
-                        type="text" 
-                        value={email} 
-                        onChange={ e => setEmail(e.target.value)} 
-                        placeholder="Informe seu e-mail"
-                    />
-                </div>
+                    <div className="user-login__form-control">
+                                       <label htmlFor="password">Senha</label>
+                   <Field id="password" name="password" placeholder="John" />
+                    </div>
 
-                <div className="user-login__form-control">
-                    <label htmlFor="password">Senha</label>    
-                    <input 
-                        id="password"
-                        type="password" 
-                        value={password} 
-                        onChange={ e => setPassword(e.target.value)} 
-                        placeholder="Informe sua senha"
-                    />
-                </div>                
-                
-                <button 
-                    className="user-login__submit-button"                    
-                    onClick={handleLogin}>Entrar 
-                </button>
-            </form>
-        </div>
-
+                   <button className="user-login__submit-button"
+                   type="submit">Entrar</button>
+                 </Form>
+               </Formik>
+             </div>
     );
 }

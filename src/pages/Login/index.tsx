@@ -26,32 +26,7 @@ export const Login = () => {
                    { setSubmitting }: FormikHelpers<Values>
                  ) => {
                    setTimeout(() => {
-                        console.log(values.email);
-
-                        let body = {
-                            email: values.email,
-                            password: values.password
-                        };
-
-                        let stringBody = JSON.stringify(body);
-                        console.log(stringBody);
-
-                        let token = "";
-
-//                         fetch("http://localhost:8080/platforms").then(resp => resp.json())
-                        fetch("http://localhost:8080/auth", {
-                            method: 'POST',
-                            body: stringBody,
-                            headers: {
-                                "Authorization": `Bearer: ${token}`,
-                                'Content-Type': 'application/json',
-                                'Access-Control-Allow-Origin': '*'
-                            }
-                        }).then(resp => resp.json())
-                        .then(resp => console.log(resp));
-
-//                         auth.signin(values.email, values.password);
-//                      alert(JSON.stringify(values, null, 2));
+                     auth.signin(values.email, values.password);
                      setSubmitting(false);
                    }, 500);
                  }}
